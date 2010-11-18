@@ -18,6 +18,7 @@ LOCAL_SRC_FILES:=                                      \
                   NetlinkHandler.cpp                   \
                   Volume.cpp                           \
                   DirectVolume.cpp                     \
+                  AutoVolume.cpp                       \
                   logwrapper.c                         \
                   Process.cpp                          \
                   Fat.cpp                              \
