@@ -61,6 +61,7 @@ protected:
     virtual void revertDeviceInfo(void);
     int isDecrypted() { return mIsDecrypted; }
     int getFlags() { return mFlags; }
+    void broadcastDiskAdded();
 
 private:
     void handleDiskAdded(const char *devpath, NetlinkEvent *evt);
