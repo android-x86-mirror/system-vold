@@ -183,12 +183,10 @@ static int process_config(VolumeManager *vm) {
     if (!(fp = fopen("/etc/vold.fstab", "r"))) {
         // no volume added yet, create a AutoVolume object
         // to mount USB/MMC/SD automatically
-        if (!vol) {
-            // FIXME: should not hardcode the label and mount_point
-            vol = new AutoVolume(vm, "sdcard", "/mnt/sdcard");
-            if (vol)
-                vm->addVolume(vol);
-        }
+        // FIXME: should not hardcode the label and mount_point
+        vol = new AutoVolume(vm, "usb", "/mnt/USB");
+        if (vol)
+            vm->addVolume(vol);
         return vol ? 0 : -ENOMEM;
     }
 
