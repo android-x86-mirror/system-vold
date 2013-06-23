@@ -109,6 +109,8 @@ int AutoVolume::handleBlockEvent(NetlinkEvent *evt)
                 const char *storages[] = {
                     "/sys/bus/mmc/drivers/mmcblk",      // MMC block device
                     "/sys/bus/usb/drivers/usb-storage", // USB Mass Storage
+//                  "/sys/bus/scsi/drivers/sd",         // Generic SCSI SD
+                    "/sys/bus/usb/drivers/rts5139",
                 };
 
                 size_t i = 0;
