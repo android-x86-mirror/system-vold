@@ -273,6 +273,7 @@ static bool lookup_key_ref(const std::map<userid_t, std::string>& key_map, useri
 
 static void get_data_file_encryption_modes(PolicyKeyRef* key_ref) {
     struct fstab_rec* rec = fs_mgr_get_entry_for_mount_point(fstab_default, DATA_MNT_POINT);
+    if (!rec) return;
     char const* contents_mode;
     char const* filenames_mode;
     fs_mgr_get_file_encryption_modes(rec, &contents_mode, &filenames_mode);
