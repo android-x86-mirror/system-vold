@@ -90,8 +90,6 @@ const char *VolumeManager::LOOPDIR           = "/mnt/obb";
 
 static const char* kUserMountPath = "/mnt/user";
 
-static const unsigned int kMajorBlockMmc = 179;
-
 /* writes superblock at end of file or device given by name */
 static int writeSuperBlock(const char* name, struct asec_superblock *sb, unsigned int numImgSectors) {
     int sbfd = open(name, O_RDWR | O_CLOEXEC);
@@ -299,7 +297,7 @@ void VolumeManager::handleBlockEvent(NetlinkEvent *evt) {
                 // For now, assume that MMC devices are SD, and that
                 // everything else is USB
                 int flags = source->getFlags();
-                if (major == kMajorBlockMmc) {
+                if (major == android::vold::Disk::kMajorBlockMmc) {
                     flags |= android::vold::Disk::Flags::kSd;
                 } else {
                     flags |= android::vold::Disk::Flags::kUsb;
