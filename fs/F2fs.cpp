@@ -57,12 +57,14 @@ status_t Mount(const std::string& source, const std::string& target,
         const std::string& opts /* = "" */, bool trusted, bool portable) {
     std::string data(opts);
 
+#ifdef LINEAGE_BUILD
     if (portable) {
         if (!data.empty()) {
             data += ",";
         }
         data += "context=u:object_r:sdcard_posix:s0";
     }
+#endif
 
     const char* c_source = source.c_str();
     const char* c_target = target.c_str();
