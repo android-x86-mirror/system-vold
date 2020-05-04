@@ -32,6 +32,7 @@ namespace exfat {
 
 static const char* kMkfsPath = "/system/bin/mkfs.exfat";
 static const char* kFsckPath = "/system/bin/fsck.exfat";
+static const char* kMountPath = "/system/bin/mount.exfat";
 
 bool IsSupported() {
     return access(kMkfsPath, X_OK) == 0 && access(kFsckPath, X_OK) == 0 &&
@@ -70,7 +71,18 @@ status_t Mount(const std::string& source, const std::string& target, int ownerUi
         return 0;
     }
 
-    return -1;
+    mountData = android::base::StringPrintf(
+            "noatime,nodev,nosuid,dirsync,uid=%d,gid=%d,fmask=%o,dmask=%o,noexec,rw",
+            ownerUid, ownerGid, permMask, permMask);
+
+    std::vector<std::string> cmd;
+    cmd.push_back(kMountPath);
+    cmd.push_back("-o");
+    cmd.push_back(mountData);
+    cmd.push_back(source);
+    cmd.push_back(target);
+
+    return ForkExecvp(cmd);
 }
 
 status_t Format(const std::string& source) {

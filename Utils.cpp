@@ -634,7 +634,8 @@ bool IsFilesystemSupported(const std::string& fsType) {
     }
 
     /* fuse filesystems */
-    supported.append("fuse\tntfs\n");
+    supported.append("fuse\tntfs\n"
+                     "fuse\texfat\n");
 
     if (supported.find(fsType + "\n") != std::string::npos) {
         return true;
