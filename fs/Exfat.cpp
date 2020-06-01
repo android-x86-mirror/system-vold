@@ -42,17 +42,18 @@ bool IsSupported() {
 status_t Check(const std::string& source) {
     std::vector<std::string> cmd;
     cmd.push_back(kFsckPath);
+    cmd.push_back("-a");
     cmd.push_back(source);
 
     int rc = ForkExecvp(cmd, nullptr, sFsckUntrustedContext);
     if (rc == 0) {
         LOG(INFO) << "Check OK";
         return 0;
-    } else {
-        LOG(ERROR) << "Check failed (code " << rc << ")";
-        errno = EIO;
-        return -1;
     }
+
+    // don't write anything to the file system
+    cmd[1] = "-n";
+    return ForkExecvp(cmd, nullptr, sFsckUntrustedContext);
 }
 
 status_t Mount(const std::string& source, const std::string& target, int ownerUid, int ownerGid,
