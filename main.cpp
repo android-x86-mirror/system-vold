@@ -285,6 +285,10 @@ static int process_config(VolumeManager *vm, bool* has_adoptable, bool* has_quot
                             // exclude the last 'p'
                             sdcard = sdcard.substr(0, pos - 1);
                         }
+                        if (sdcard.find("nvme") != std::string::npos) {
+                            // exclude the last 'p'
+                            sdcard = sdcard.substr(0, pos - 1);
+                        }
                     }
                 }
                 vm->addDiskSource(std::shared_ptr<VolumeManager::DiskSource>(
